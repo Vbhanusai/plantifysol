@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../static/styles/styles.css" />
+    <title>Plantify - Upload Image</title>
+  </head>
+  <body>
+    <header>
+      <h1>Plantify</h1>
+      <p>A place to identify plant diseases and find remedies</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="upload.html">Upload Image</a></li>
+        <li><a href="result.html">Result</a></li>
+        <li><a href="explore.html">Explore Products</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section id="upload-section" class="container">
+        <h2>Upload Image</h2>
+        <p>
+          Select the type of plant and upload an image to identify diseases:
+        </p>
+        <form id="upload-form" enctype="multipart/form-data">
+          <!-- Hidden input to store the selected plant type -->
+          <input type="hidden" name="plant-type" id="plant-type-input" />
+
+          <div class="row">
+            <div class="all_img">
+            <!-- Apple -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('apple')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="apple"
+                    onclick="setSelectedPlant('apple')"
+                  />
+                  <div class="image-container">
+                    <img src="\static\images\apple.jpg" alt="Apple" />
+                  </div>
+                  <p>Apple</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Blueberry -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('blueberry')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="blueberry"
+                    onclick="setSelectedPlant('blueberry')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/blueberry.jpg" alt="Blueberry" />
+                  </div>
+                  <p>Blueberry</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Cherry -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('cherry')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="cherry"
+                    onclick="setSelectedPlant('cherry')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/cherry.jpg" alt="Cherry" />
+                  </div>
+                  <p>Cherry</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Corn -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('corn')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="corn"
+                    onclick="setSelectedPlant('corn')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/corn.jpg" alt="Corn" />
+                  </div>
+                  <p>Corn</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Grape -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('grape')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="grape"
+                    onclick="setSelectedPlant('grape')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/grape.jpg" alt="Grape" />
+                  </div>
+                  <p>Grape</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Orange -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('orange')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="orange"
+                    onclick="setSelectedPlant('orange')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/orange.jpg" alt="Orange" />
+                  </div>
+                  <p>Orange</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Peach -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('peach')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="peach"
+                    onclick="setSelectedPlant('peach')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/peach.jpg" alt="Peach" />
+                  </div>
+                  <p>Peach</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Pepper -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('pepper')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="pepper"
+                    onclick="setSelectedPlant('pepper')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/pepper.jpg" alt="Pepper" />
+                  </div>
+                  <p>Pepper</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Potato -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('potato')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="potato"
+                    onclick="setSelectedPlant('potato')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/potato.jpg" alt="Potato" />
+                  </div>
+                  <p>Potato</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Raspberry -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('raspberry')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="raspberry"
+                    onclick="setSelectedPlant('raspberry')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/raspberry.jpg" alt="Raspberry" />
+                  </div>
+                  <p>Raspberry</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Soybean -->
+            <!-- <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('soybean')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="soybean"
+                    onclick="setSelectedPlant('soybean')"
+                  />
+                  <div class="image-container">
+                    <img src="../images/soyabean.jpg" alt="Soybean" />
+                  </div>
+                  <p>Soybean</p>
+                </label>
+              </div>
+            </div>
+             -->
+            <!-- Squash -->
+            <!-- <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('squash')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="squash"
+                    onclick="setSelectedPlant('squash')"
+                  />
+                  <div class="image-container">
+                    <img src="../images/squash.jpg" alt="Squash" />
+                  </div>
+                  <p>Squash</p>
+                </label>
+              </div>
+            </div> -->
+            
+            <!-- Strawberry -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('strawberry')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="strawberry"
+                    onclick="setSelectedPlant('strawberry')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/strawberry.jpg" alt="Strawberry" />
+                  </div>
+                  <p>Strawberry</p>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Tomato -->
+            <div class="col-md-3">
+              <div class="plant-option" onclick="showPlantImage('tomato')">
+                <label>
+                  <input
+                    type="radio"
+                    name="plant-type-radio"
+                    value="tomato"
+                    onclick="setSelectedPlant('tomato')"
+                  />
+                  <div class="image-container">
+                    <img src="/static/images/tomato.jpg" alt="Tomato" />
+                  </div>
+                  <p>Tomato</p>
+                </label>
+              </div>
+            </div>
+            
+          <div class="form-group">
+            <label for="image-input">Upload Image:</label>
+            <input
+              type="file"
+              class="form-control-file"
+              accept="image/*"
+              id="image-input"
+              name="image"
+              required
+            />
+          </div>
+          <button type="button" class="btn btn-primary" onclick="submitForm()">
+            Upload
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2023 Plantify</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        window.addEventListener("popstate", _ => {
+          window.location.reload()
+        })
+      // Function to display the selected plant image
+      function showPlantImage(plantType) {
+        const imageContainer = document.getElementById("selected-plant-image");
+        const imagePath = `../images/${plantType}.jpg`; // Assuming images are named after plant types
+        imageContainer.innerHTML = `<img src="${imagePath}" alt="${plantType}">`;
+
+        // Set the selected plant type in the hidden input field
+        document.getElementById("plant-type-input").value = plantType;
+      }
+
+      // Function to set the selected plant type when the radio button is clicked
+      function setSelectedPlant(plantType) {
+        document.getElementById("plant-type-input").value = plantType;
+      }
+
+      function submitForm() {
+  const selectedPlant = document.getElementById("plant-type-input").value;
+  const selectedImage = document.getElementById("image-input").files[0];
+
+  if (selectedPlant && selectedImage) {
+    const formData = new FormData();
+    formData.append("plant_type", selectedPlant);
+    formData.append("image", selectedImage);
+
+    fetch("http://127.0.0.1:5000/upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // return response.json();
+        return response.text();
+      })
+      .then(data => {
+        // Handle the response from the backend
+        console.log("Response from backend:", data);
+
+        // Redirect to the result page
+        // window.location.href = "/result";
+        window.history.pushState({ data }, "", "/result")
+        window.document.body.innerHTML = data
+
+
+      })
+      .catch(error => {
+        console.error("Error communicating with the backend:", error);
+      });
+  } else {
+    alert("Please select a plant type and upload an image.");
+  }
+}
+
+    </script>
+  </body>
+</html>
