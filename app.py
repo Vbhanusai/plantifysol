@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 # from predict_disease import prediction_disease_type
 import cv2
+import numpy as np
+import io
 
 app = Flask(__name__)
 app.static_folder = "static/"
@@ -23,14 +25,17 @@ def upload():
 
         if file.filename == '':
             return 'No selected file', 400
-        
-        # Save the file to a temporary location
-        file_path = "Uploads/"+file.filename
-        file.save(file_path)
 
-        img = cv2.imread(file_path)
-        print("image path",file_path)
-        print("image shape",img.shape)
+        in_memory_file = io.BytesIO()
+        file.save(in_memory_file)
+        in_memory_file.seek(0)
+        
+        # Convert the image data to a numpy array
+        file_bytes = np.frombuffer(in_memory_file.read(), dtype=np.uint8)
+        
+        # Decode the numpy array into an image
+        img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+        # Save the file to a temporary location
 
         disease="Rust"
         prob = 91
@@ -43,7 +48,7 @@ def upload():
 
         # Redirect to the result page, passing necessary data
         # return redirect(url_for('result', predicted_disease=predicted_disease, remedy=remedy))
-        return render_template('result.html', predicted_disease=disease, remedy=remedy)
+        return render_template('result.html', predicted_disease=disease, remedy=remedy,prob = prob)
 
     return render_template('upload.html')
 

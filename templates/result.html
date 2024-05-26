@@ -24,11 +24,12 @@
       <section id="result-section" class="container">
         <h2>Result Page</h2>
         <p>Predicted Disease: {{ predicted_disease }}</p>
-        <p>Remedy: {{ remedy.remedy }}</p>
+        <p>Confidence: {{ prob }}</p>
+        <!-- <p>Remedy: {{ remedy.remedy }}</p> -->
 
         <!-- Add other fields from the remedy object as needed -->
         <div id="product-image-container">
-          <img src="{{ remedy.image }}" alt="Product Image" />
+          <!-- <img src="{{ remedy.image }}" alt="Product Image" /> -->
         </div>
       </section>
     </main>
