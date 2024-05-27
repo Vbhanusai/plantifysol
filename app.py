@@ -21,22 +21,28 @@ def upload():
         
         # Assuming you have an image file uploaded
         plant_type = request.form['plant_type']
-        file = request.files['image']
+        image_file = request.files['image']
 
-        if file.filename == '':
+        if image_file.filename == '':
             return 'No selected file', 400
 
-        in_memory_file = io.BytesIO()
-        file.save(in_memory_file)
-        in_memory_file.seek(0)
+        # in_memory_file = io.BytesIO()
+        # file.save(in_memory_file)
+        # in_memory_file.seek(0)
         
-        # Convert the image data to a numpy array
-        file_bytes = np.frombuffer(in_memory_file.read(), dtype=np.uint8)
+        # # Convert the image data to a numpy array
+        # file_bytes = np.frombuffer(in_memory_file.read(), dtype=np.uint8)
         
-        # Decode the numpy array into an image
-        img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+        # # Decode the numpy array into an image
+        # img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
         # Save the file to a temporary location
 
+        # Read image data directly from the file object
+        image_bytes = image_file.read()
+
+        # Decode the image bytes using OpenCV's imdecode
+        image = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_COLOR)
+        print(image)
         disease="Rust"
         prob = 91
         # Assuming the file name is in the format "plant_disease.jpg"
