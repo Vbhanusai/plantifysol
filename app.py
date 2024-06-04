@@ -23,8 +23,8 @@ def upload():
         plant_type = request.form['plant_type']
         image_file = request.files['image']
 
-        if image_file.filename == '':
-            return 'No selected file', 400
+        # if image_file.filename == '':
+        #     return 'No selected file', 400
 
         # in_memory_file = io.BytesIO()
         # file.save(in_memory_file)
