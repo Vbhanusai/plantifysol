@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 # from predict_disease import prediction_disease_type
-import cv2
-import numpy as np
-import io
+# import cv2
+# import numpy as np
+# import io
 
 app = Flask(__name__)
 app.static_folder = "static/"
