@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 # from predict_disease import prediction_disease_type
-# import cv2
+import cv2
 import numpy as np
 # import io
 
@@ -37,12 +37,12 @@ def upload():
         # img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
         # Save the file to a temporary location
 
-        # # Read image data directly from the file object
-        # image_bytes = image_file.read()
+        # Read image data directly from the file object
+        image_bytes = image_file.read()
 
-        # # Decode the image bytes using OpenCV's imdecode
-        # image = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_COLOR)
-        # print(image)
+        # Decode the image bytes using OpenCV's imdecode
+        image = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_COLOR)
+        print(image)
         disease="Rust"
         prob = 91
         # Assuming the file name is in the format "plant_disease.jpg"
