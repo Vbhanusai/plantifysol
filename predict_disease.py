@@ -136,7 +136,7 @@ class prediction_disease_type:
         
         inception_model = tf.keras.applications.inception_v3.InceptionV3(
             include_top=False,
-            weights='imagenet',
+            # weights='imagenet',
             input_tensor=None,
             input_shape=(IMAGE_SIZE,IMAGE_SIZE,3),
             pooling='max'
