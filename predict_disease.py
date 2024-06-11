@@ -131,12 +131,13 @@ class prediction_disease_type:
         # output = 'ml_model.h5'
         # with io.BytesIO() as f:
         #     gdown.download(url, f)
-        #     f.seek(0)  # Move the cursor to the beginning of the buffer
+        #     # f.seek(0)  # Move the cursor to the beginning of the buffer
+        #     model = load_model(f)
         IMAGE_SIZE = 256
         
         inception_model = tf.keras.applications.inception_v3.InceptionV3(
             include_top=False,
-            # weights='imagenet',
+            weights=None,
             input_tensor=None,
             input_shape=(IMAGE_SIZE,IMAGE_SIZE,3),
             pooling='max'
