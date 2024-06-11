@@ -1,11 +1,15 @@
 import tensorflow as tf #version 2.13.0
 import keras #version 
 from keras.models import load_model
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 import numpy as np
 import cv2
 import tensorflow as tf
 import requests
 import gdown
+import io
+import h5py
 # def download():
 #     # URL of the file on Google Drive
 #     url = 'https://drive.google.com/uc?id=1sH-TwcZOPsUWeY_cqFzWqJtxECy1HrEI&export=download'
@@ -19,7 +23,9 @@ import gdown
 def download():
     url = 'https://drive.google.com/uc?id=1sH-TwcZOPsUWeY_cqFzWqJtxECy1HrEI'
     output = 'ml_model.h5'
-    gdown.download(url, output, quiet=False)
+    with io.BytesIO() as f:
+        gdown.download(url, f)
+    # gdown.download(url, output, quiet=False)
 
 def load_pb_model(pb_file):
     try:
@@ -118,9 +124,35 @@ class prediction_disease_type:
         
         # # Set the loaded weights to the model
         # dnn_model.set_weights(dnn_model_weights)
-        download()
-        model_path='ml_model.h5'
-        dnn_model = load_model(model_path)
+        
+        
+        #
+        # url = 'https://drive.google.com/uc?id=1sH-TwcZOPsUWeY_cqFzWqJtxECy1HrEI'
+        # output = 'ml_model.h5'
+        # with io.BytesIO() as f:
+        #     gdown.download(url, f)
+        #     f.seek(0)  # Move the cursor to the beginning of the buffer
+        IMAGE_SIZE = 256
+        
+        inception_model = tf.keras.applications.inception_v3.InceptionV3(
+            include_top=False,
+            weights='imagenet',
+            input_tensor=None,
+            input_shape=(IMAGE_SIZE,IMAGE_SIZE,3),
+            pooling='max'
+        )
+
+        for layer in inception_model.layers:
+                layer.trainable = True
+        dnn_model = Sequential([
+            inception_model,
+            BatchNormalization(axis= -1, momentum= 0.99, epsilon= 0.001),
+            Dense(128, activation= 'relu'),
+            Dropout(rate= 0.45, seed= 123),
+            Dense(39, activation= 'softmax')
+        ])
+        weights_path = 'keras_savedmodel_weights.h5'
+        dnn_model.load_weights(weights_path)
         # dnn_model = tf.saved_model.load(model_path)
         self.dnn_model = dnn_model
         print("done")
@@ -144,7 +176,8 @@ class prediction_disease_type:
             print(x,y_pred[0][x],max_prob_indx,y_pred[0][max_prob_indx])
             if y_pred[0][x]>y_pred[0][max_prob_indx]:
                 max_prob_indx = x
-        print("max prob is ",y_pred[0][max_prob_indx],self.label_disease[max_prob_indx])
+        print("max prob is of plant type",y_pred[0][max_prob_indx],self.label_disease[max_prob_indx])
+        print("max prob is of all plant type",y_pred[0][indx],self.label_disease[indx])
         return [(y_pred[0][max_prob_indx],self.label_disease[max_prob_indx]),(y_pred[0][indx],self.label_disease[indx])]
         # return [(75,"Potato"),(75,"Potato")]
      
