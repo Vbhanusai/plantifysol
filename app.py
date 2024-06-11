@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
-# from predict_disease import prediction_disease_type
+from predict_disease import prediction_disease_type
 import cv2
 import numpy as np
 # import io
+
 
 app = Flask(__name__)
 app.static_folder = "static/"
@@ -18,7 +19,7 @@ def home():
 def upload():
     
     if request.method == 'POST':
-        
+        PDT = prediction_disease_type()
         # Assuming you have an image file uploaded
         plant_type = request.form['plant_type']
         image_file = request.files['image']
@@ -45,6 +46,12 @@ def upload():
         print(image)
         disease="Rust"
         prob = 91
+        try:
+            class_label=PDT.get_label(image,plant_type)
+            disease=class_label[0][1]
+            prob = class_label[0][0]
+        except:
+            print("error")
         # Assuming the file name is in the format "plant_disease.jpg"
         # You may need to adjust this depending on your naming convention
 
