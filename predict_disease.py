@@ -1,6 +1,7 @@
 import tensorflow as tf #version 2.13.0
 import keras #version 
-from keras.models import load_model
+# from keras.models import load_model
+from keras.saving import load_model
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 import numpy as np
@@ -135,23 +136,25 @@ class prediction_disease_type:
         #     model = load_model(f)
         IMAGE_SIZE = 256
         
-        inception_model = tf.keras.applications.inception_v3.InceptionV3(
-            include_top=False,
-            weights=None,
-            input_tensor=None,
-            input_shape=(IMAGE_SIZE,IMAGE_SIZE,3),
-            pooling='max'
-        )
+        # inception_model = tf.keras.applications.inception_v3.InceptionV3(
+        #     include_top=False,
+        #     weights=None,
+        #     input_tensor=None,
+        #     input_shape=(IMAGE_SIZE,IMAGE_SIZE,3),
+        #     pooling='max'
+        # )
 
-        for layer in inception_model.layers:
-                layer.trainable = True
-        dnn_model = Sequential([
-            inception_model,
-            BatchNormalization(axis= -1, momentum= 0.99, epsilon= 0.001),
-            Dense(128, activation= 'relu'),
-            Dropout(rate= 0.45, seed= 123),
-            Dense(39, activation= 'softmax')
-        ])
+        # for layer in inception_model.layers:
+        #         layer.trainable = True
+        # dnn_model = Sequential([
+        #     inception_model,
+        #     BatchNormalization(axis= -1, momentum= 0.99, epsilon= 0.001),
+        #     Dense(128, activation= 'relu'),
+        #     Dropout(rate= 0.45, seed= 123),
+        #     Dense(39, activation= 'softmax')
+        # ])
+        
+        dnn_model = load_model('untrained_model.h5',compile=False)
         weights_path = 'keras_savedmodel_weights.h5'
         dnn_model.load_weights(weights_path)
         # dnn_model = tf.saved_model.load(model_path)
@@ -184,5 +187,6 @@ class prediction_disease_type:
      
 
 if __name__ == "__main__":
+    k=prediction_disease_type()
     pass
         
