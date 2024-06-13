@@ -7,6 +7,7 @@ import numpy as np
 
 app = Flask(__name__)
 app.static_folder = "static/"
+PDT = prediction_disease_type()
 
 
 # Home route
@@ -17,9 +18,8 @@ def home():
 # Upload route
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
-    
     if request.method == 'POST':
-        PDT = prediction_disease_type()
+        
         # Assuming you have an image file uploaded
         plant_type = request.form['plant_type']
         image_file = request.files['image']
