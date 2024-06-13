@@ -2,3 +2,4 @@ test.py
 .myenv
 test
 untrained_model.keras
+predict_disease01.py
