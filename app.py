@@ -2,13 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for
 from predict_disease import prediction_disease_type
 import cv2
 import numpy as np
-# import io
-
-
 app = Flask(__name__)
 app.static_folder = "static/"
-PDT = prediction_disease_type()
-
+app.config['UPLOAD_FOLDER']="Uploads"
+import os
 
 # Home route
 @app.route('/')
@@ -19,48 +16,36 @@ def home():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
+        PDT = prediction_disease_type()
         
         # Assuming you have an image file uploaded
         plant_type = request.form['plant_type']
         image_file = request.files['image']
-
+        # image_content=open(image_file,'rb').read()
+        # print(image_content)
         if image_file.filename == '':
             return 'No selected file', 400
 
-        # in_memory_file = io.BytesIO()
-        # file.save(in_memory_file)
-        # in_memory_file.seek(0)
-        
-        # # Convert the image data to a numpy array
-        # file_bytes = np.frombuffer(in_memory_file.read(), dtype=np.uint8)
-        
-        # # Decode the numpy array into an image
-        # img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-        # Save the file to a temporary location
-
-        # Read image data directly from the file object
-        image_bytes = image_file.read()
-
-        # Decode the image bytes using OpenCV's imdecode
-        image = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_COLOR)
-        print(image)
+        # print(image)    
+        print(image_file.filename)
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
+        print(image_path)
+        try:
+            image_file.save(image_path)
+        except:
+            print("error")
         disease="Rust"
         prob = 91
         try:
-            class_label=PDT.get_label(image,plant_type)
-            disease=class_label[0][1]
-            prob = class_label[0][0]
+            result=PDT.get_label(image_path,plant_type)
+            disease=result[2]
+            prob=result[3]
+            print("predicted disease",disease)
+            
         except:
             print("error")
-        # Assuming the file name is in the format "plant_disease.jpg"
-        # You may need to adjust this depending on your naming convention
-
-        # print()
-        # Fetch corresponding remedy and product image from MongoDB
         remedy = "kkkkk"
-
-        # Redirect to the result page, passing necessary data
-        # return redirect(url_for('result', predicted_disease=predicted_disease, remedy=remedy))
+        print("predicted disease",disease)
         return render_template('result.html', predicted_disease=disease, remedy=remedy,prob = prob)
 
     return render_template('upload.html')
